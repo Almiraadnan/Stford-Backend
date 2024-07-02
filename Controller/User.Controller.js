@@ -31,20 +31,11 @@ const createUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-
   const { email, password } = req.body;
   if (!email || !password) {
     return res
       .status(200)
       .json({ success: false, msg: "Please Enter Email and Password" });
-  }
-  if (email === "ceorahiddin@gmail.com" && password === "ceoPasswordisCeo") {
-    res.status(201).json({
-      success: true,
-      msg: "Admin Successfully",
-      admin: true
-    })
-    return
   }
   if (emailvalidator.validate(email)) {
     const user = await UserModel.findOne({ email })
