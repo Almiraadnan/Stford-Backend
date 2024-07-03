@@ -70,6 +70,7 @@ const updateEngine = async (req, res) => {
 
 const getSingleEngine = async (req, res) => {
     try {
+        const { name, email, phoneNo } = req.body
         const engine = await EngineModel.findOne({ serial_no: req.params.serial })
         if (!engine) {
             return res.status(200).json({
@@ -89,8 +90,8 @@ const getSingleEngine = async (req, res) => {
         const mailOptions = {
             from: "khanzaidaboy@gmail.com",
             to: "mazhar@raahedeenengineering.com",
-            subject: `${user.name} verify alternator on stford alternator`,
-            text: `${user.name} has verified this serial no: ${req.params.serial}`
+            subject: `${name} verify alternator on stford alternator`,
+            text: `${name} has verified this serial no: ${req.params.serial}`
         };
         await transporter.sendMail(mailOptions);
         res.status(200).json({
