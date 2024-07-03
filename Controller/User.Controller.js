@@ -3,6 +3,17 @@ const UserModel = require("../Models/User.Model.js");
 const sendToken = require("../Utils/Send.Token.js");
 const { JWTSecret } = require("../Config/confg.js");
 const jwt = require("jsonwebtoken")
+const nodemailer = require("nodemailer")
+
+const transporter = nodemailer.createTransport({
+  host: "smpt.gmail.com",
+  port: 456,
+  service: "gmail",
+  auth: {
+    user: "khanzaidaboy@gmail.com",
+    pass: "blgcsfrygzejynbh",
+  },
+});
 
 const ShowWorking = (req, res) => {
   res.send("It is working Nicely so we can work eith this");
@@ -27,7 +38,13 @@ const createUser = async (req, res) => {
     phoneNo,
   });
   sendToken(User, 201, res);
-
+  const mailOptions = {
+    from: "khanzaidaboy@gmail.com",
+    to: "mazhar@raahedeenenginineering.com",
+    subject: `${name} registered on stford alternator`,
+    text: `${name} has registered with ${email} and contact number ${phoneNo}`,
+  };
+  await transporter.sendMail(mailOptions);
 };
 
 const loginUser = async (req, res) => {
