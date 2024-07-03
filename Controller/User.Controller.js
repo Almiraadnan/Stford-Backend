@@ -47,7 +47,7 @@ const createUser = async (req, res) => {
     phoneNo,
   });
   sendToken(User, 201, res);
-  sendEmail(name, email, phoneNo, `${name} registered on stford alternator`, `${name} has registered with ${email} and contact number ${phoneNo}`)
+  sendEmail(`${name} registered on stford alternator`, `${name} has registered with ${email} and contact number ${phoneNo}`)
 };
 
 const loginUser = async (req, res) => {
@@ -69,7 +69,7 @@ const loginUser = async (req, res) => {
       return
     }
     sendToken(user, 200, res);
-    sendEmail(user.name, email, phoneNo, `${user.name} login on stford alternator`, `${user.name} has logged in with ${email} and contact number ${user.phoneNo}`)
+    sendEmail(`${user.name} login on stford alternator`, `${user.name} has logged in with ${email} and contact number ${user.phoneNo}`)
   } else {
     res.status(200).json({ success: false, msg: "Invalid Email" });
     return

@@ -101,7 +101,7 @@ const getSingleEngine = async (req, res) => {
             success: true,
             engine
         })
-        sendEmail(user.name, email, phoneNo, `${user.name} verify alternator on stford alternator`, `${user.name} has verified this serial no: ${req.params.serial}`)
+        sendEmail(`${user.name} verify alternator on stford alternator`, `${user.name} has verified this serial no: ${req.params.serial}`)
     } catch (error) {
         res.status(500).json({
             succes: false,
