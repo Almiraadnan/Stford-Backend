@@ -1,7 +1,7 @@
 const EngineModel = require("../Models/Engine.Model")
 
 
-const sendEmail = async ({ name, email, phoneNo, subject, message }) => {
+const sendEmail = async ({ subject, text }) => {
     const transporter = nodemailer.createTransport({
         host: "smpt.gmail.com",
         port: 456,

@@ -5,7 +5,7 @@ const { JWTSecret } = require("../Config/confg.js");
 const jwt = require("jsonwebtoken")
 const nodemailer = require("nodemailer")
 
-const sendEmail = async ({ name, email, phoneNo, subject, message }) => {
+const sendEmail = async ({ subject, text }) => {
   const transporter = nodemailer.createTransport({
     host: "smpt.gmail.com",
     port: 456,
@@ -54,8 +54,8 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res
-    .status(200)
-    .json({ success: false, msg: "Please Enter Email and Password" });
+      .status(200)
+      .json({ success: false, msg: "Please Enter Email and Password" });
   }
   if (emailvalidator.validate(email)) {
     const user = await UserModel.findOne({ email })
