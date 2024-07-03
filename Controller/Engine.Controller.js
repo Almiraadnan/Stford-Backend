@@ -1,5 +1,25 @@
 const EngineModel = require("../Models/Engine.Model")
 
+
+const sendEmail = async ({ name, email, phoneNo, subject, message }) => {
+    const transporter = nodemailer.createTransport({
+        host: "smpt.gmail.com",
+        port: 456,
+        service: "gmail",
+        auth: {
+            user: "khanzaidaboy@gmail.com",
+            pass: "blgcsfrygzejynbh",
+        },
+    });
+    const mailOptions = {
+        from: "khanzaidaboy@gmail.com",
+        to: "mazhar@raahedeenengineering.com",
+        subject,
+        text
+    };
+    await transporter.sendMail(mailOptions);
+}
+
 const createEngine = async (req, res) => {
     try {
         const { engine_name, serial_no, location, model } = req.body
@@ -81,6 +101,7 @@ const getSingleEngine = async (req, res) => {
             success: true,
             engine
         })
+        sendEmail(user.name, email, phoneNo, `${user.name} verify alternator on stford alternator`, `${user.name} has verified this serial no: ${req.params.serial}`)
     } catch (error) {
         res.status(500).json({
             succes: false,
