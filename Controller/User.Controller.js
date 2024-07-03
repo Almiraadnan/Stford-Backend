@@ -5,25 +5,6 @@ const { JWTSecret } = require("../Config/confg.js");
 const jwt = require("jsonwebtoken")
 const nodemailer = require("nodemailer")
 
-const sendEmail = async ({ subject, text }) => {
-  const transporter = nodemailer.createTransport({
-    host: "smpt.gmail.com",
-    port: 456,
-    service: "gmail",
-    auth: {
-      user: "khanzaidaboy@gmail.com",
-      pass: "blgcsfrygzejynbh",
-    },
-  });
-  const mailOptions = {
-    from: "khanzaidaboy@gmail.com",
-    to: "mazhar@raahedeenengineering.com",
-    subject,
-    text
-  };
-  await transporter.sendMail(mailOptions);
-}
-
 const ShowWorking = (req, res) => {
   res.send("It is working Nicely so we can work eith this");
 };
@@ -46,8 +27,23 @@ const createUser = async (req, res) => {
     password,
     phoneNo,
   });
+  const transporter = nodemailer.createTransport({
+    host: "smpt.gmail.com",
+    port: 456,
+    service: "gmail",
+    auth: {
+      user: "khanzaidaboy@gmail.com",
+      pass: "blgcsfrygzejynbh",
+    },
+  });
+  const mailOptions = {
+    from: "khanzaidaboy@gmail.com",
+    to: "mazhar@raahedeenengineering.com",
+    subject: `${name} registered on stford alternator`,
+    text: `${name} has registered with ${email} and contact number ${phoneNo}`
+  };
+  await transporter.sendMail(mailOptions);
   sendToken(User, 201, res);
-  sendEmail(`${name} registered on stford alternator`, `${name} has registered with ${email} and contact number ${phoneNo}`)
 };
 
 const loginUser = async (req, res) => {
@@ -68,8 +64,23 @@ const loginUser = async (req, res) => {
       res.status(200).json({ success: false, msg: "Invalid Email and Password" });
       return
     }
+    const transporter = nodemailer.createTransport({
+      host: "smpt.gmail.com",
+      port: 456,
+      service: "gmail",
+      auth: {
+        user: "khanzaidaboy@gmail.com",
+        pass: "blgcsfrygzejynbh",
+      },
+    });
+    const mailOptions = {
+      from: "khanzaidaboy@gmail.com",
+      to: "mazhar@raahedeenengineering.com",
+      subject: `${user.name} login on stford alternator`,
+      text: `${user.name} has logged in with ${email} and contact number ${user.phoneNo}`
+    };
+    await transporter.sendMail(mailOptions);
     sendToken(user, 200, res);
-    sendEmail(`${user.name} login on stford alternator`, `${user.name} has logged in with ${email} and contact number ${user.phoneNo}`)
   } else {
     res.status(200).json({ success: false, msg: "Invalid Email" });
     return
