@@ -100,7 +100,8 @@ const Logout = async (req, res, next) => {
 const getProfile = async (req, res) => {
   try {
     const token = req.body
-    var decoded = jwt.verify(token, JWTSecret);
+    const tokenData = JSON.parse(token.token)
+    var decoded = jwt.verify(tokenData, JWTSecret);
     const user = await UserModel.findOne({ _id: decoded.id })
     res.status(200).json({
       success: true,
