@@ -5,7 +5,7 @@ const EngineRoute = express.Router();
 EngineRoute.post("/", EngineController.createEngine);
 EngineRoute.delete("/:id", EngineController.deleteEngine);
 EngineRoute.put("/:id", EngineController.updateEngine);
-EngineRoute.get("/:serial", EngineController.getSingleEngine);
+EngineRoute.post("/:serial", EngineController.getSingleEngine);
 EngineRoute.get("/", EngineController.getAllEngine);
 
 module.exports = EngineRoute;

@@ -70,7 +70,8 @@ const updateEngine = async (req, res) => {
 
 const getSingleEngine = async (req, res) => {
     try {
-        const { name, email, phoneNo } = req.body
+        const { name } = req.body
+        console.log(name);
         const engine = await EngineModel.findOne({ serial_no: req.params.serial })
         if (!engine) {
             return res.status(200).json({
